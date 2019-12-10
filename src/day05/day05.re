@@ -1,7 +1,3 @@
-[@bs.val] external __dirname: string = "__dirname";
-let readInput = () =>
-  Node.Fs.readFileAsUtf8Sync(__dirname ++ "/instructions");
-
 type mode =
   | Position
   | Immediate;
@@ -106,7 +102,8 @@ let readInput = () => Node.Fs.readFileAsUtf8Sync(__dirname ++ "/input");
 let solutionPart1 = () => {
   let (_, output) =
     readInput()
-    |> Js.String.splitByRe([%re "/,/"])
+    |> String.split_on_char(',', _)
+    |> Array.of_list
     |> Array.map(int_of_string)
     |> Part1.make(~input=1);
   ();
@@ -119,7 +116,8 @@ Js.log2("day05 part1", solutionPart1());
 let solutionPart2 = () => {
   let (_, output) =
     readInput()
-    |> Js.String.splitByRe([%re "/,/"])
+    |> String.split_on_char(',', _)
+    |> Array.of_list
     |> Array.map(int_of_string)
     |> Part1.make(~input=5);
   ();

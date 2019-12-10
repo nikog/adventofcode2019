@@ -2,7 +2,7 @@ open Belt;
 
 let hasDoubleDigits = password => {
   let re = [%re "/(\d)\1/"];
-  re |> Js.Re.test(password->string_of_int);
+  re->Js.Re.test_(password->string_of_int);
 };
 
 let hasExactlyDoubleDigits = password => {
@@ -31,14 +31,14 @@ let hasDecreasingDigits = password => {
       let digit = max(0, int_of_string(value) - 1);
 
       let re = Js.Re.fromString("[0-" ++ string_of_int(digit) ++ "]");
-      let hasDecreasingDigits = re |> Js.Re.test(rest);
+      let hasDecreasingDigits = re->Js.Re.test_(rest);
 
-      hasDecreasingDigits && ! found^ ?
-        {
+      hasDecreasingDigits && ! found^
+        ? {
           found := true;
           ();
-        } :
-        ();
+        }
+        : ();
     });
 
   found^;
@@ -49,8 +49,8 @@ module Part1 = {
     let passwords =
       Array.range(lower, upper)
       ->Array.reduce(0, (acc, input) =>
-          hasDoubleDigits(input) && !hasDecreasingDigits(input) ?
-            acc + 1 : acc
+          hasDoubleDigits(input) && !hasDecreasingDigits(input)
+            ? acc + 1 : acc
         );
 
     passwords;
@@ -62,8 +62,8 @@ module Part2 = {
     let passwords =
       Array.range(lower, upper)
       ->Array.reduce(0, (acc, input) =>
-          hasExactlyDoubleDigits(input) && !hasDecreasingDigits(input) ?
-            acc + 1 : acc
+          hasExactlyDoubleDigits(input) && !hasDecreasingDigits(input)
+            ? acc + 1 : acc
         );
 
     passwords;

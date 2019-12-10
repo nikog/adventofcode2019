@@ -25,9 +25,10 @@ module Part1 = {
 
     let coords =
       wire
-      |> Js.String.splitByRe([%re "/,/"])
+      |> String.split_on_char(',', _)
+      |> Array.of_list
       |> Array.map(vector => {
-           let result = re |> Js.Re.exec(vector);
+           let result = re->Js.Re.exec_(vector);
            let direction = getCapture(result, 1);
            let distance = getCapture(result, 2);
 
@@ -82,12 +83,12 @@ module Part1 = {
         (s2_x *. (p0_y -. p2_y) -. s2_y *. (p0_x -. p2_x))
         /. (-. s2_x *. s1_y +. s1_x *. s2_y);
 
-      s >= 0. && s <= 1. && t >= 0. && t <= 1. ?
-        Some((
-          int_of_float(p0_x +. t *. s1_x),
-          int_of_float(p0_y +. t *. s1_y),
-        )) :
-        None;
+      s >= 0. && s <= 1. && t >= 0. && t <= 1.
+        ? Some((
+            int_of_float(p0_x +. t *. s1_x),
+            int_of_float(p0_y +. t *. s1_y),
+          ))
+        : None;
     };
   };
 
@@ -180,8 +181,8 @@ module Part2 = {
            let intersection =
              isBetween(toFloat(wire[ia - 1]), toFloat(a), toFloat(coord));
 
-           intersection ?
-             {
+           intersection
+             ? {
                let ((x0, y0), _) = segmentA;
                let (x1, y1) = coord;
 
@@ -190,8 +191,8 @@ module Part2 = {
 
                sum := sum^ + distance;
                intersected := true;
-             } :
-             {
+             }
+             : {
                let ((x0, y0), (x1, y1)) = segmentA;
 
                let distance =
@@ -231,7 +232,7 @@ module Part2 = {
 };
 
 let solutionPart1 = () => {
-  let wires = readInput() |> Js.String.splitByRe([%re "/\\n/"]);
+  let wires = readInput() |> String.split_on_char('\n', _) |> Array.of_list;
 
   let wiresA = wires[0];
   let wiresB = wires[1];
@@ -240,7 +241,7 @@ let solutionPart1 = () => {
 };
 
 let solutionPart2 = () => {
-  let wires = readInput() |> Js.String.splitByRe([%re "/\\n/"]);
+  let wires = readInput() |> String.split_on_char('\n', _) |> Array.of_list;
 
   let wiresA = wires[0];
   let wiresB = wires[1];

@@ -11,8 +11,8 @@ module Part1 = {
     };
 
   let rec loop = (input: array(int), index: int) =>
-    (input |> Array.length) - 1 >= index ?
-      {
+    (input |> Array.length) - 1 >= index
+      ? {
         let cmd = input[index];
 
         switch (cmd) {
@@ -32,15 +32,16 @@ module Part1 = {
         | 99
         | _ => input
         };
-      } :
-      input;
+      }
+      : input;
 
   let solve = (input: array(int)) => loop(input, 0);
 };
 
 let solutionPart1 = (~noun, ~verb) =>
   readInput()
-  |> Js.String.splitByRe([%re "/,/"])
+  |> String.split_on_char(',', _)
+  |> Array.of_list
   |> Array.map(int_of_string)
   |> Array.mapi((index, value) =>
        switch (index) {

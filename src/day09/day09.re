@@ -75,17 +75,17 @@ module Part1 = {
       let jump =
         basicGetIndex(1) |> Array.get(instructions) |> Int64.to_int > 0;
       let newPointer =
-        jump ?
-          basicGetIndex(2) |> Array.get(instructions) |> Int64.to_int :
-          pointer + 3;
+        jump
+          ? basicGetIndex(2) |> Array.get(instructions) |> Int64.to_int
+          : pointer + 3;
       loop(instructions, ~input, ~output, ~relativeBase, newPointer);
     | (true, 6) =>
       let jump =
         basicGetIndex(1) |> Array.get(instructions) |> Int64.to_int == 0;
       let newPointer =
-        jump ?
-          basicGetIndex(2) |> Array.get(instructions) |> Int64.to_int :
-          pointer + 3;
+        jump
+          ? basicGetIndex(2) |> Array.get(instructions) |> Int64.to_int
+          : pointer + 3;
       loop(instructions, ~input, ~output, ~relativeBase, newPointer);
     | (true, 7) =>
       let p1 = basicGetIndex(1) |> Array.get(instructions);
@@ -150,7 +150,8 @@ let readInput = () => Node.Fs.readFileAsUtf8Sync(__dirname ++ "/input");
 let solutionPart1 = () => {
   let (_, output) =
     readInput()
-    |> Js.String.splitByRe([%re "/,/"])
+    |> String.split_on_char(',', _)
+    |> Array.of_list
     |> Array.map(int_of_string)
     |> Part1.make(~input=1);
   ();
@@ -163,7 +164,8 @@ Js.log2("day09 part1", solutionPart1());
 let solutionPart1 = () => {
   let (_, output) =
     readInput()
-    |> Js.String.splitByRe([%re "/,/"])
+    |> String.split_on_char(',', _)
+    |> Array.of_list
     |> Array.map(int_of_string)
     |> Part1.make(~input=2);
   ();

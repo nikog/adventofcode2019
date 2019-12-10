@@ -18,9 +18,9 @@ let rec getOrbit = (map, satellite, toBody) =>
   | nextOrbit =>
     let (nextBody, _) = nextOrbit |> getValues;
 
-    nextBody == toBody ?
-      (2, [satellite]) :
-      {
+    nextBody == toBody
+      ? (2, [satellite])
+      : {
         let (distance, path) = getOrbit(map, nextBody, toBody);
         (1 + distance, List.append([satellite], path));
       };
@@ -84,16 +84,3 @@ module Part2 = {
     totalDist - 2;
   };
 };
-
-[@bs.val] external __dirname: string = "__dirname";
-let readInput = () => Node.Fs.readFileAsUtf8Sync(__dirname ++ "/input");
-
-let solution = () =>
-  readInput() |> Js.String.split("\n") |> Array.to_list |> Part1.make;
-
-Js.log2("day06 part1", solution());
-
-let solutionPart2 = () =>
-  readInput() |> Js.String.split("\n") |> Array.to_list |> Part2.make;
-
-Js.log2("day06 part2", solutionPart2());

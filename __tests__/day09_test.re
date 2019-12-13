@@ -11,7 +11,7 @@ describe("day09", () => {
       ([|1, 1, 1, 4, 99, 5, 6, 0, 99|], [|30, 1, 1, 4, 2, 5, 6, 0, 99|]),
     ],
     ((input, expected)) => {
-      let (program, _) = Day09.Part1.make(input, ~input=0);
+      let (program, _) = Day09.Part1.make(input, ~input=[|0|]);
 
       program
       |> expect
@@ -20,14 +20,14 @@ describe("day09", () => {
   );
 
   test("part1 test", () => {
-    let input = 10;
+    let input = [|10|];
     let (_, output) = Day09.Part1.make([|3, 0, 4, 0, 99|], ~input);
 
     output |> expect |> toEqual([|10|] |> Array.map(string_of_int));
   });
 
   test("part1 test", () => {
-    let (code, _) = Day09.Part1.make([|1002, 4, 3, 4, 33|], ~input=0);
+    let (code, _) = Day09.Part1.make([|1002, 4, 3, 4, 33|], ~input=[|0|]);
 
     code
     |> expect
@@ -36,28 +36,34 @@ describe("day09", () => {
 
   test("part2 test position equals 8", () => {
     let (_, output) =
-      Day09.Part1.make([|3, 9, 8, 9, 10, 9, 4, 9, 99, (-1), 8|], ~input=8);
+      Day09.Part1.make(
+        [|3, 9, 8, 9, 10, 9, 4, 9, 99, (-1), 8|],
+        ~input=[|8|],
+      );
 
     output |> expect |> toEqual([|1|] |> Array.map(string_of_int));
   });
 
   test("part2 test position doesnt equal 8", () => {
     let (_, output) =
-      Day09.Part1.make([|3, 9, 8, 9, 10, 9, 4, 9, 99, (-1), 8|], ~input=10);
+      Day09.Part1.make(
+        [|3, 9, 8, 9, 10, 9, 4, 9, 99, (-1), 8|],
+        ~input=[|10|],
+      );
 
     output |> expect |> toEqual([|0|] |> Array.map(string_of_int));
   });
 
   test("part2 test immediate equals 8", () => {
     let (_, output) =
-      Day09.Part1.make([|3, 3, 1108, (-1), 8, 3, 4, 3, 99|], ~input=8);
+      Day09.Part1.make([|3, 3, 1108, (-1), 8, 3, 4, 3, 99|], ~input=[|8|]);
 
     output |> expect |> toEqual([|1|] |> Array.map(string_of_int));
   });
 
   test("part2 test immediate doesnt equal 8", () => {
     let (_, output) =
-      Day09.Part1.make([|3, 3, 1108, (-1), 8, 3, 4, 3, 99|], ~input=10);
+      Day09.Part1.make([|3, 3, 1108, (-1), 8, 3, 4, 3, 99|], ~input=[|10|]);
 
     output |> expect |> toEqual([|0|] |> Array.map(string_of_int));
   });
@@ -114,7 +120,7 @@ describe("day09", () => {
           98,
           99,
         |],
-        ~input=7,
+        ~input=[|7|],
       );
 
     output |> expect |> toEqual([|999|] |> Array.map(string_of_int));
@@ -172,7 +178,7 @@ describe("day09", () => {
           98,
           99,
         |],
-        ~input=8,
+        ~input=[|8|],
       );
 
     output |> expect |> toEqual([|1000|] |> Array.map(string_of_int));
@@ -230,7 +236,7 @@ describe("day09", () => {
           98,
           99,
         |],
-        ~input=9,
+        ~input=[|9|],
       );
 
     output |> expect |> toEqual([|1001|] |> Array.map(string_of_int));
@@ -255,14 +261,14 @@ describe("day09", () => {
       0,
       99,
     |];
-    let (_, output) = Day09.Part1.make(instructions, ~input=0);
+    let (_, output) = Day09.Part1.make(instructions, ~input=[|0|]);
 
     output |> expect |> toEqual(instructions |> Array.map(string_of_int));
   });
 
   test("part1 large number", () => {
     let instructions = [|104, 1125899906842624, 99|];
-    let (_, output) = Day09.Part1.make(instructions, ~input=0);
+    let (_, output) = Day09.Part1.make(instructions, ~input=[|0|]);
 
     output
     |> expect
@@ -271,7 +277,7 @@ describe("day09", () => {
 
   test("part1 large number 2", () => {
     let instructions = [|1102, 34915192, 34915192, 7, 4, 7, 99, 0|];
-    let (_, output) = Day09.Part1.make(instructions, ~input=0);
+    let (_, output) = Day09.Part1.make(instructions, ~input=[|0|]);
 
     output[0] |> Js.String.split("") |> Array.length |> expect |> toEqual(16);
   });

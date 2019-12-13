@@ -14,9 +14,10 @@ function readInput(param) {
 
 function solutionPart1(param) {
   var func = Day09$Adventofcode2019.Part1.make;
+  var arg = /* array */[1];
   var __x = Fs.readFileSync(__dirname + "/input", "utf8");
   return (function (param) {
-                return Curry._2(func, param, 1);
+                return Curry._2(func, param, arg);
               })($$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
 }
 
@@ -24,9 +25,10 @@ console.log("day09 part1", solutionPart1(/* () */0));
 
 function solutionPart1$1(param) {
   var func = Day09$Adventofcode2019.Part1.make;
+  var arg = /* array */[2];
   var __x = Fs.readFileSync(__dirname + "/input", "utf8");
   return (function (param) {
-                return Curry._2(func, param, 2);
+                return Curry._2(func, param, arg);
               })($$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
 }
 

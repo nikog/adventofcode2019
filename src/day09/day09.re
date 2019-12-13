@@ -59,8 +59,19 @@ module Part1 = {
       loop(instructions, ~input, ~output, ~relativeBase, pointer + 4);
     | (true, 3) =>
       let pos = basicGetIndex(1);
-      instructions[pos] = input;
-      loop(instructions, ~input, ~output, ~relativeBase, pointer + 2);
+
+      if (input->Array.length == 0) {
+        (instructions, output);
+      } else {
+        instructions[pos] = input->Array.get(0);
+        loop(
+          instructions,
+          ~input=input->Array.sub(_, 1, input->Array.length - 1),
+          ~output,
+          ~relativeBase,
+          pointer + 2,
+        );
+      };
     | (true, 4) =>
       let pos = basicGetIndex(1);
 
@@ -121,7 +132,7 @@ module Part1 = {
     };
   };
 
-  let make = (instructions: array(int), ~input: int) => {
+  let make = (instructions: array(int), ~input: array(int)) => {
     let memory =
       Array.make(100 * (instructions |> Array.length), 0 |> Int64.of_int);
 
@@ -132,7 +143,7 @@ module Part1 = {
       loop(
         instructionsWithMemory,
         0,
-        ~input=input |> Int64.of_int,
+        ~input=input |> Array.map(Int64.of_int),
         ~output=[||],
         ~relativeBase=0,
       );

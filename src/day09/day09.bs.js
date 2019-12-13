@@ -52,10 +52,11 @@ function getIndex(instructions, modes, pointer, relativeBase, i) {
   }
 }
 
-function loop(instructions, _pointer, input, _output, _relativeBase) {
+function loop(instructions, _pointer, _input, _output, _relativeBase) {
   while(true) {
     var relativeBase = _relativeBase;
     var output = _output;
+    var input = _input;
     var pointer = _pointer;
     var withinBounds = pointer <= (instructions.length - 1 | 0);
     var match = parseOpcode(Caml_int64.to_int32(Caml_array.caml_array_get(instructions, pointer)));
@@ -96,9 +97,17 @@ function loop(instructions, _pointer, input, _output, _relativeBase) {
               continue ;
           case 2 :
               var pos$2 = basicGetIndex(1);
-              Caml_array.caml_array_set(instructions, pos$2, input);
-              _pointer = pointer + 2 | 0;
-              continue ;
+              if (input.length === 0) {
+                return /* tuple */[
+                        instructions,
+                        output
+                      ];
+              } else {
+                Caml_array.caml_array_set(instructions, pos$2, Caml_array.caml_array_get(input, 0));
+                _input = $$Array.sub(input, 1, input.length - 1 | 0);
+                _pointer = pointer + 2 | 0;
+                continue ;
+              }
           case 3 :
               var pos$3 = basicGetIndex(1);
               _output = $$Array.append(output, /* array */[Caml_array.caml_array_get(instructions, pos$3)]);
@@ -159,7 +168,7 @@ function make(instructions, input) {
       });
   var __x = $$Array.map(Caml_int64.of_int32, instructions);
   var instructionsWithMemory = $$Array.append(__x, memory);
-  var match = loop(instructionsWithMemory, 0, Caml_int64.of_int32(input), /* array */[], 0);
+  var match = loop(instructionsWithMemory, 0, $$Array.map(Caml_int64.of_int32, input), /* array */[], 0);
   return /* tuple */[
           $$Array.map(Int64.to_string, match[0]),
           $$Array.map(Int64.to_string, match[1])

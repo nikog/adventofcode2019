@@ -9,7 +9,7 @@ let solutionPart1 = () => {
     |> String.split_on_char(',', _)
     |> Array.of_list
     |> Array.map(int_of_string)
-    |> Part1.make(~input=[|1|]);
+    |> Part1.make(~input=[|1|], ~pointer=0, ~relativeBase=0);
   ();
 
   output;
@@ -23,7 +23,7 @@ let solutionPart1 = () => {
     |> String.split_on_char(',', _)
     |> Array.of_list
     |> Array.map(int_of_string)
-    |> Part1.make(~input=[|2|]);
+    |> Part1.make(~input=[|2|], ~pointer=0, ~relativeBase=0);
   ();
 
   output;

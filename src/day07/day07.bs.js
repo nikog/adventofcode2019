@@ -3,10 +3,10 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var $$Array = require("bs-platform/lib/js/array.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
-var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Belt_SetInt = require("bs-platform/lib/js/belt_SetInt.js");
 var Caml_format = require("bs-platform/lib/js/caml_format.js");
 var Day09$Adventofcode2019 = require("../day09/day09.bs.js");
@@ -42,6 +42,10 @@ function permutations(phases) {
 }
 
 function make(program) {
+  var func = Day09$Adventofcode2019.Part1.make;
+  var computer = function (param) {
+    return Curry._4(func, undefined, undefined, param, program);
+  };
   var phases = Belt_SetInt.fromArray(/* array */[
         0,
         1,
@@ -51,7 +55,7 @@ function make(program) {
       ]);
   return Belt_List.reduce(permutations(phases), 0, (function (acc, permutation) {
                 var signal = Belt_List.reduce(permutation, 0, (function (input, phase) {
-                        var match = Day09$Adventofcode2019.Part1.make(program, /* array */[
+                        var match = computer(/* array */[
                               phase,
                               input
                             ]);
@@ -71,9 +75,11 @@ var Part1 = {
   make: make
 };
 
-console.log(Pervasives.max_int);
-
 function make$1(program) {
+  var func = Day09$Adventofcode2019.Part1.make;
+  var computer = function (param) {
+    return Curry._4(func, undefined, undefined, param, program);
+  };
   var phases = Belt_SetInt.fromArray(/* array */[
         5,
         6,
@@ -98,8 +104,7 @@ function make$1(program) {
                                       input,
                                       /* [] */0
                                     ]));
-                            var param$1 = $$Array.of_list(Caml_array.caml_array_get(inputs, i));
-                            var match = Day09$Adventofcode2019.Part1.make(program, param$1);
+                            var match = computer($$Array.of_list(Caml_array.caml_array_get(inputs, i)));
                             var output = match[1];
                             if (output.length !== Caml_array.caml_array_get(outputs, i).length) {
                               Caml_array.caml_array_set(outputs, i, output);
@@ -136,4 +141,4 @@ var Part2 = {
 
 exports.Part1 = Part1;
 exports.Part2 = Part2;
-/*  Not a pure module */
+/* No side effect */

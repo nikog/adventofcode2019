@@ -1,5 +1,7 @@
 exception Invalid_instruction(string);
 exception Out_of_bounds(string);
+exception Waiting_for_instruction(int, int, array(int64), array(int64));
+
 type mode =
   | Position
   | Immediate
@@ -61,7 +63,14 @@ module Part1 = {
       let pos = basicGetIndex(1);
 
       if (input->Array.length == 0) {
-        (instructions, output);
+        raise(
+          Waiting_for_instruction(
+            pointer,
+            relativeBase,
+            instructions,
+            output,
+          ),
+        );
       } else {
         instructions[pos] = input->Array.get(0);
         loop(
@@ -132,20 +141,33 @@ module Part1 = {
     };
   };
 
-  let make = (instructions: array(int), ~input: array(int)) => {
-    let memory =
-      Array.make(100 * (instructions |> Array.length), 0 |> Int64.of_int);
-
+  let make =
+      (
+        ~pointer=0,
+        ~relativeBase=0,
+        ~input: array(int),
+        instructions: array(int),
+      ) => {
     let instructionsWithMemory =
-      instructions |> Array.map(Int64.of_int) |> Array.append(_, memory);
+      pointer == 0
+        ? instructions
+          |> Array.map(Int64.of_int)
+          |> Array.append(
+               _,
+               Array.make(
+                 10 * (instructions |> Array.length),
+                 0 |> Int64.of_int,
+               ),
+             )
+        : instructions |> Array.map(Int64.of_int);
 
     let (endstate, output) =
       loop(
         instructionsWithMemory,
-        0,
+        pointer,
         ~input=input |> Array.map(Int64.of_int),
         ~output=[||],
-        ~relativeBase=0,
+        ~relativeBase,
       );
 
     (

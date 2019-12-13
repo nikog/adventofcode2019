@@ -14,6 +14,8 @@ var Invalid_instruction = Caml_exceptions.create("Day09-Adventofcode2019.Invalid
 
 var Out_of_bounds = Caml_exceptions.create("Day09-Adventofcode2019.Out_of_bounds");
 
+var Waiting_for_instruction = Caml_exceptions.create("Day09-Adventofcode2019.Waiting_for_instruction");
+
 function parseOpcode(instruction) {
   var opcode = instruction % 100;
   var modes = (instruction - opcode | 0) / 100 | 0;
@@ -98,16 +100,18 @@ function loop(instructions, _pointer, _input, _output, _relativeBase) {
           case 2 :
               var pos$2 = basicGetIndex(1);
               if (input.length === 0) {
-                return /* tuple */[
-                        instructions,
-                        output
-                      ];
-              } else {
-                Caml_array.caml_array_set(instructions, pos$2, Caml_array.caml_array_get(input, 0));
-                _input = $$Array.sub(input, 1, input.length - 1 | 0);
-                _pointer = pointer + 2 | 0;
-                continue ;
+                throw [
+                      Waiting_for_instruction,
+                      pointer,
+                      relativeBase,
+                      instructions,
+                      output
+                    ];
               }
+              Caml_array.caml_array_set(instructions, pos$2, Caml_array.caml_array_get(input, 0));
+              _input = $$Array.sub(input, 1, input.length - 1 | 0);
+              _pointer = pointer + 2 | 0;
+              continue ;
           case 3 :
               var pos$3 = basicGetIndex(1);
               _output = $$Array.append(output, /* array */[Caml_array.caml_array_get(instructions, pos$3)]);
@@ -161,17 +165,24 @@ function loop(instructions, _pointer, _input, _output, _relativeBase) {
   };
 }
 
-function make(instructions, input) {
-  var memory = Caml_array.caml_make_vect(Caml_int32.imul(100, instructions.length), /* int64 */{
-        hi: 0,
-        lo: 0
-      });
-  var __x = $$Array.map(Caml_int64.of_int32, instructions);
-  var instructionsWithMemory = $$Array.append(__x, memory);
-  var match = loop(instructionsWithMemory, 0, $$Array.map(Caml_int64.of_int32, input), /* array */[], 0);
+function make($staropt$star, $staropt$star$1, input, instructions) {
+  var pointer = $staropt$star !== undefined ? $staropt$star : 0;
+  var relativeBase = $staropt$star$1 !== undefined ? $staropt$star$1 : 0;
+  var match = pointer === 0;
+  var instructionsWithMemory;
+  if (match) {
+    var __x = $$Array.map(Caml_int64.of_int32, instructions);
+    instructionsWithMemory = $$Array.append(__x, Caml_array.caml_make_vect(Caml_int32.imul(10, instructions.length), /* int64 */{
+              hi: 0,
+              lo: 0
+            }));
+  } else {
+    instructionsWithMemory = $$Array.map(Caml_int64.of_int32, instructions);
+  }
+  var match$1 = loop(instructionsWithMemory, pointer, $$Array.map(Caml_int64.of_int32, input), /* array */[], relativeBase);
   return /* tuple */[
-          $$Array.map(Int64.to_string, match[0]),
-          $$Array.map(Int64.to_string, match[1])
+          $$Array.map(Int64.to_string, match$1[0]),
+          $$Array.map(Int64.to_string, match$1[1])
         ];
 }
 
@@ -182,6 +193,7 @@ var Part1 = {
 
 exports.Invalid_instruction = Invalid_instruction;
 exports.Out_of_bounds = Out_of_bounds;
+exports.Waiting_for_instruction = Waiting_for_instruction;
 exports.parseOpcode = parseOpcode;
 exports.getIndex = getIndex;
 exports.Part1 = Part1;

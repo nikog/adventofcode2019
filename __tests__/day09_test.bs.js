@@ -90,32 +90,32 @@ Jest.describe("day09", (function (param) {
                 ]
               ]
             ], (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(param[0], /* array */[0]);
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[0], param[0]);
                 return Jest.Expect.toBeSupersetOf($$Array.map((function (prim) {
                                   return String(prim);
                                 }), param[1]), Jest.Expect.expect(match[0]));
               }));
         Jest.test("part1 test", (function (param) {
                 var input = /* array */[10];
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, input, /* array */[
                       3,
                       0,
                       4,
                       0,
                       99
-                    ], input);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[10]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part1 test", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[0], /* array */[
                       1002,
                       4,
                       3,
                       4,
                       33
-                    ], /* array */[0]);
+                    ]);
                 return Jest.Expect.toBeSupersetOf($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[
@@ -127,7 +127,7 @@ Jest.describe("day09", (function (param) {
                               ]), Jest.Expect.expect(match[0]));
               }));
         Jest.test("part2 test position equals 8", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[8], /* array */[
                       3,
                       9,
                       8,
@@ -139,13 +139,13 @@ Jest.describe("day09", (function (param) {
                       99,
                       -1,
                       8
-                    ], /* array */[8]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[1]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part2 test position doesnt equal 8", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[10], /* array */[
                       3,
                       9,
                       8,
@@ -157,13 +157,13 @@ Jest.describe("day09", (function (param) {
                       99,
                       -1,
                       8
-                    ], /* array */[10]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[0]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part2 test immediate equals 8", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[8], /* array */[
                       3,
                       3,
                       1108,
@@ -173,13 +173,13 @@ Jest.describe("day09", (function (param) {
                       4,
                       3,
                       99
-                    ], /* array */[8]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[1]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part2 test immediate doesnt equal 8", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[10], /* array */[
                       3,
                       3,
                       1108,
@@ -189,13 +189,13 @@ Jest.describe("day09", (function (param) {
                       4,
                       3,
                       99
-                    ], /* array */[10]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[0]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part 2 test large value", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[7], /* array */[
                       3,
                       21,
                       1008,
@@ -243,13 +243,13 @@ Jest.describe("day09", (function (param) {
                       46,
                       98,
                       99
-                    ], /* array */[7]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[999]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part 2 test large value", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[8], /* array */[
                       3,
                       21,
                       1008,
@@ -297,13 +297,13 @@ Jest.describe("day09", (function (param) {
                       46,
                       98,
                       99
-                    ], /* array */[8]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[1000]), Jest.Expect.expect(match[1]));
               }));
         Jest.test("part 2 test large value", (function (param) {
-                var match = Day09$Adventofcode2019.Part1.make(/* array */[
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[9], /* array */[
                       3,
                       21,
                       1008,
@@ -351,7 +351,7 @@ Jest.describe("day09", (function (param) {
                       46,
                       98,
                       99
-                    ], /* array */[9]);
+                    ]);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[1001]), Jest.Expect.expect(match[1]));
@@ -375,7 +375,7 @@ Jest.describe("day09", (function (param) {
                   0,
                   99
                 ];
-                var match = Day09$Adventofcode2019.Part1.make(instructions, /* array */[0]);
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[0], instructions);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), instructions), Jest.Expect.expect(match[1]));
@@ -386,7 +386,7 @@ Jest.describe("day09", (function (param) {
                   0,
                   99
                 ];
-                var match = Day09$Adventofcode2019.Part1.make(instructions, /* array */[0]);
+                var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[0], instructions);
                 return Jest.Expect.toEqual($$Array.map((function (prim) {
                                   return String(prim);
                                 }), /* array */[0]), Jest.Expect.expect(match[1]));
@@ -402,7 +402,7 @@ Jest.describe("day09", (function (param) {
                         99,
                         0
                       ];
-                      var match = Day09$Adventofcode2019.Part1.make(instructions, /* array */[0]);
+                      var match = Day09$Adventofcode2019.Part1.make(undefined, undefined, /* array */[0], instructions);
                       return Jest.Expect.toEqual(16, Jest.Expect.expect(Caml_array.caml_array_get(match[1], 0).split("").length));
                     }));
       }));

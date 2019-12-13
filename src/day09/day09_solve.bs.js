@@ -3,7 +3,6 @@
 
 var Fs = require("fs");
 var $$Array = require("bs-platform/lib/js/array.js");
-var Curry = require("bs-platform/lib/js/curry.js");
 var $$String = require("bs-platform/lib/js/string.js");
 var Caml_format = require("bs-platform/lib/js/caml_format.js");
 var Day09$Adventofcode2019 = require("./day09.bs.js");
@@ -13,23 +12,15 @@ function readInput(param) {
 }
 
 function solutionPart1(param) {
-  var func = Day09$Adventofcode2019.Part1.make;
-  var arg = /* array */[1];
   var __x = Fs.readFileSync(__dirname + "/input", "utf8");
-  return (function (param) {
-                return Curry._2(func, param, arg);
-              })($$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
+  return Day09$Adventofcode2019.Part1.make(0, 0, /* array */[1], $$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
 }
 
 console.log("day09 part1", solutionPart1(/* () */0));
 
 function solutionPart1$1(param) {
-  var func = Day09$Adventofcode2019.Part1.make;
-  var arg = /* array */[2];
   var __x = Fs.readFileSync(__dirname + "/input", "utf8");
-  return (function (param) {
-                return Curry._2(func, param, arg);
-              })($$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
+  return Day09$Adventofcode2019.Part1.make(0, 0, /* array */[2], $$Array.map(Caml_format.caml_int_of_string, $$Array.of_list($$String.split_on_char(/* "," */44, __x))))[1];
 }
 
 console.log("day09 part2", solutionPart1$1(/* () */0));

@@ -45,8 +45,6 @@ module Part1 = {
   };
 };
 
-Js.log(max_int);
-
 module Part2 = {
   let make = program => {
     let computer = Day09.Part1.make(program);
